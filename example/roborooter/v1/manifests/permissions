@@ -1,0 +1,7 @@
+gchristensen:staff 0744 ./htdocs
+root:root 0555 ./lib
+root:root 0555 ./lib/i386-linux-gnu
+root:root 0555 ./lib/x86_64-linux-gnu
+root:root 0444 ./lib/i386-linux-gnu/example
+root:root 0444 ./lib/x86_64-linux-gnu/example
+

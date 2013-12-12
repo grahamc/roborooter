@@ -1,0 +1,4 @@
+./htdocs/*
+./lib/i386-linux-gnu/example
+./lib/x86_64-linux-gnu/example
+
