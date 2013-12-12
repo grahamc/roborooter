@@ -1,4 +1,5 @@
 
+import os.path
 import ConfigParser
 
 class ConfigLoader:
@@ -6,16 +7,17 @@ class ConfigLoader:
     self.config_file = config_file
     self.config = None
     self._config()
+    self._verify_config()
 
   # Get the path to the sources
   def sources_path(self):
-    return self.config['sources']
+    return os.path.join(os.path.dirname(self.config_file), self.config['sources'])
 
   def minimum_version(self):
-    return self.config['minimum_version']
+    return int(self.config['minimum_version'])
 
   def default_version(self):
-    return self.config['default_version']
+    return int(self.config['default_version'])
 
   # Parse the configuration one time
   def _config(self):
@@ -34,3 +36,9 @@ class ConfigLoader:
     }
 
     return default
+
+  def _verify_config(self):
+    if self.default_version() < self.minimum_version():
+      raise ValueError('default_version must not be below minimum_version')
+
+
