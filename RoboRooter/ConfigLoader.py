@@ -9,6 +9,15 @@ class ConfigLoader:
     self._config()
     self._verify_config()
 
+  def get_config(self):
+    cfg = {
+        'sources_path': self.sources_path(),
+        'minimum_version': self.minimum_version(),
+        'default_version': self.default_version()
+    }
+
+    return cfg
+
   # Get the path to the sources
   def sources_path(self):
     return os.path.join(os.path.dirname(self.config_file), self.config['sources'])
