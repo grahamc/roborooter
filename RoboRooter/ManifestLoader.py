@@ -1,6 +1,6 @@
 
 import os
-import RoboRooter.Manifest as Manifest
+import Manifest
 
 class ManifestLoader:
   def __init__(self, config):

@@ -2,8 +2,8 @@
 import unittest
 import os
 
-import RoboRooter.ManifestLoader as ManifestLoader
-import RoboRooter.Manifest as Manifest
+from RoboRooter.ManifestLoader import ManifestLoader
+from RoboRooter.Manifest import Manifest
 
 class test_ManifestLoader(unittest.TestCase):
   def setUp(self):

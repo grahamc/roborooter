@@ -12,5 +12,5 @@ class Manifest:
     return self.path
 
   def add_components(self, components):
-    self.components.append(components)
+    self.components += components
     return True

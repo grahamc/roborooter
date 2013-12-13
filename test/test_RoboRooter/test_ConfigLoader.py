@@ -1,6 +1,6 @@
 
 import unittest
-import RoboRooter.ConfigLoader as ConfigLoader
+from RoboRooter.ConfigLoader import ConfigLoader
 
 class test_ConfigLoader(unittest.TestCase):
   def setUp(self):
