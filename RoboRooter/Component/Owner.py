@@ -3,7 +3,6 @@ import FileHint
 import os
 import pwd
 import grp
-import pprint
 
 class Owner(FileHint.FileHint):
   def __init__(self):

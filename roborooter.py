@@ -4,7 +4,9 @@ from RoboRooter.ConfigLoader import ConfigLoader
 from RoboRooter.ManifestLoader import ManifestLoader
 from RoboRooter.Component.Permission import Permission
 from RoboRooter.Component.Owner import Owner
+from RoboRooter.Component.Content import Content
 import pprint
+import os
 
 
 config = ConfigLoader('./example/roborooter.ini')
@@ -18,10 +20,25 @@ perm.load_state(manifest)
 owner = Owner()
 owner.load_state(manifest)
 
-pprint.pprint(perm.needs_fixing('./example/target'))
-pprint.pprint(owner.needs_fixing('./example/target'))
-perm.fix('./example/target')
-owner.fix('./example/target')
+content = Content()
+content.set_origin(os.path.join(manifest.path, './sources/'))
+content.load_state(manifest)
+
+path = './example/target/'
+
+if content.needs_fixing(path):
+  content.fix('./example/target')
+else:
+  print "Content does not resolving."
+
+if perm.needs_fixing(path):
+  perm.fix('./example/target')
+else:
+  print "Permissions do not resolving."
 
 
+if owner.needs_fixing(path):
+  owner.fix('./example/target')
+else:
+  print "Ownership do not resolving."
 

@@ -1,7 +1,6 @@
 
 import FileHint
 import os
-import pprint
 
 class Permission(FileHint.FileHint):
   def __init__(self):
