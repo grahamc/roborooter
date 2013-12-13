@@ -5,12 +5,10 @@ class Manifest:
     self.path = path
     self.components = []
 
-  def version(self):
-    return self.version
-
-  def path(self):
-    return self.path
-
   def add_components(self, components):
-    self.components += components
-    return True
+    [self.add_component(component) for component in components]
+
+  def add_component(self, component):
+    if component.applies_to_manifest(self):
+      self.components.append(component)
+

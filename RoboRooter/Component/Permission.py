@@ -1,5 +1,8 @@
 
-class Permission:
+import os.path
+import FileHint
+
+class Permission(FileHint.FileHint):
   def __init__(self):
-    return None
+    self.hint_name = './manifests/permissions'
 
