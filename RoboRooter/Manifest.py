@@ -1,4 +1,6 @@
 
+import copy
+
 class Manifest:
   def __init__(self, version, path):
     self.version = version
@@ -10,5 +12,5 @@ class Manifest:
 
   def add_component(self, component):
     if component.applies_to_manifest(self):
-      self.components.append(component)
+      self.components.append(copy.copy(component))
 
