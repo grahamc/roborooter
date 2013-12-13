@@ -7,7 +7,7 @@ import os
 class Content(FileHint.FileHint):
   def __init__(self):
     self.hint_name = './manifests/md5'
-    self.state_expression = r'^([0-9a-f]{32})\s*(.*)$'
+    self.state_expression = r'^([0-9a-f]{32})\s+(.+)$'
     self.rules = []
     self.origin = None
     super(FileHint.FileHint, self).__init__()
