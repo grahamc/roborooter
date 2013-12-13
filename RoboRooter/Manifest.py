@@ -1,7 +1,7 @@
 
 import copy
 
-class Manifest:
+class Manifest(object):
   def __init__(self, version, path):
     self.version = version
     self.path = path
@@ -11,6 +11,12 @@ class Manifest:
     [self.add_component(component) for component in components]
 
   def add_component(self, component):
-    if component.applies_to_manifest(self):
-      self.components.append(copy.copy(component))
+    if not component.applies_to_manifest(self):
+      return False
+
+    local_component = copy.copy(component)
+    local_component.load_state(self)
+    self.components.append(local_component)
+
+    return True
 

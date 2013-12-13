@@ -2,7 +2,7 @@
 import os
 import Manifest
 
-class ManifestLoader:
+class ManifestLoader(object):
   def __init__(self, config):
     self.config = config
     self.components = []

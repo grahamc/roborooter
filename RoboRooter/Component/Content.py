@@ -10,6 +10,11 @@ class Content(FileHint.FileHint):
     self.state_expression = r'^([0-9a-f]{32})\s*(.*)$'
     self.rules = []
     self.origin = None
+    super(FileHint.FileHint, self).__init__()
+
+  def load_state(self, manifest):
+    self._load_state_via_regex(manifest)
+    self.origin = os.path.join(manifest.path, './sources/')
 
   def set_origin(self, origin):
     self.origin = origin

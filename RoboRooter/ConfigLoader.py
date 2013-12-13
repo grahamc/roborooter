@@ -2,7 +2,7 @@
 import os.path
 import ConfigParser
 
-class ConfigLoader:
+class ConfigLoader(object):
   def __init__(self, config_file):
     self.config_file = config_file
     self.config = None
