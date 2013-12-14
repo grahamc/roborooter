@@ -32,6 +32,7 @@ class Whitelist(FileHint.FileHint):
         if scoped_path in self.files:
           continue
         else:
+          print "Would remove %s" % (absolute_path)
           yield absolute_path
       elif os.path.isdir(absolute_path):
         if scoped_path in self.directories:
@@ -49,5 +50,5 @@ class Whitelist(FileHint.FileHint):
 
   def fix(self, path):
     for change in self._filter_violations(path):
-      print "Would delete %s" % (change)
+      os.remove(change)
 
