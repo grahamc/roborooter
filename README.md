@@ -18,6 +18,8 @@ files where they shouldn't exist.
 Components implement change to the filesystem, and are driven by manifests
 on the filesystem.
 
+You can find an example set of manifests at example/roborooter/1/
+
 ### DeviceFile
 
 The DeviceFile component will create device files in the chroot. Since device IDs
