@@ -18,9 +18,9 @@ files where they shouldn't exist.
 Components implement change to the filesystem, and are driven by manifests
 on the filesystem.
 
-### BlockDevice
+### DeviceFile
 
-The BlockDevice component will create device files in the chroot. Since device IDs
+The DeviceFile component will create device files in the chroot. Since device IDs
 can change between systems, this is done by passing the source and target
 device.
 

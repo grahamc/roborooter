@@ -3,7 +3,7 @@ import FileHint
 import os
 import stat
 
-class BlockDevice(FileHint.FileHint):
+class DeviceFile(FileHint.FileHint):
   def __init__(self):
     self.hint_name = './manifests/devices'
     self.state_expression = r'^(.+)\s+(.+)$'
