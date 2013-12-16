@@ -17,8 +17,8 @@ class Permission(FileHint.FileHint):
         if current != expected:
           print "Expected %s to have %o but was %o" % (
             rule_path,
-            current,
-            expected
+            expected,
+            current
           )
           yield (expected, rule_path)
       except(OSError):
