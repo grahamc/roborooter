@@ -1,8 +1,8 @@
 # Roborooter
 
-![roborooter](http://pool.theinfosphere.org/images/f/f2/Robo-Rooter.png)
-
 A manifest-based root reconstruction device.
+
+![roborooter](http://pool.theinfosphere.org/images/f/f2/Robo-Rooter.png)
 
 ## No Really
 
