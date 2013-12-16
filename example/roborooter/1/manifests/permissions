@@ -2,6 +2,11 @@ root:staff 0744 ./htdocs
 root:staff 0555 ./lib
 root:staff 0555 ./lib/i386-linux-gnu
 root:staff 0555 ./lib/x86_64-linux-gnu
+root:staff 0555 ./dev
+root:staff 0666 ./dev/random
+root:staff 0666 ./dev/urandom
+root:staff 0666 ./dev/null
+root:staff 0666 ./dev/zero
 gchristensen:staff 0444 ./lib/i386-linux-gnu/example
 root:staff 0444 ./lib/x86_64-linux-gnu/example
 
