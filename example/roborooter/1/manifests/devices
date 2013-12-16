@@ -1,0 +1,5 @@
+/dev/random ./dev/random
+/dev/urandom ./dev/urandom
+/dev/null ./dev/null
+/dev/zero ./dev/zero
+
