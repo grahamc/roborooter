@@ -1,1 +1,2 @@
 ./lib/x86_64-linux-gnu/example ./lib/x86_64-linux-gnu/symlink_example
+./lib/x86_64-linux-gnu/example ./symlink_example
