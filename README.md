@@ -25,8 +25,7 @@ can change between systems, this is done by passing the source and target
 device.
 
 Roborooter will read the device ID from the source and create the node to the
-target. Support for block and character device is supported, and will
-automatically be implemented.
+target. There is support for both block and character devices.
 
 Manifest Location: `manifests/devices`
 
