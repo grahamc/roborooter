@@ -20,7 +20,7 @@ class Whitelist(FileHint.FileHint):
         for rule in self.rules:
             path = rule[0]
             if path[-1] == '/':
-                self.directories.append(path)
+                self.directories.append(os.path.normpath(path))
             else:
                 self.files.append(path)
 
@@ -42,7 +42,7 @@ class Whitelist(FileHint.FileHint):
                     print "Would remove %s" % (absolute_path)
                     yield absolute_path
             elif os.path.isdir(absolute_path):
-                if scoped_path in self.directories:
+                if os.path.normpath(scoped_path) in self.directories:
                     continue
                 else:
                     _sub_filter = self._filter_violations(

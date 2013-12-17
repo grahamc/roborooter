@@ -14,7 +14,7 @@ class Permission(FileHint.FileHint):
             rule_path = os.path.join(path, rule[1])
             try:
                 expected = int(rule[0], 8)
-                current = os.stat(rule_path).st_mode & 0777
+                current = os.lstat(rule_path).st_mode & 0777
                 if current != expected:
                     print "Expected %s to have %o but was %o" % (
                         rule_path,
@@ -27,4 +27,4 @@ class Permission(FileHint.FileHint):
 
     def fix(self, path):
         for change in self._filter_violations(path):
-            os.chmod(change[1], change[0])
+            os.lchmod(change[1], change[0])

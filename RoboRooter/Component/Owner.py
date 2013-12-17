@@ -27,8 +27,8 @@ class Owner(FileHint.FileHint):
                 if current != expected:
                     print "Expected %s to be owned by %s but was %s" % (
                         rule_path,
-                        current,
-                        expected
+                        expected,
+                        current
                     )
                     yield (expected_user, expected_group, rule_path)
             except(OSError):

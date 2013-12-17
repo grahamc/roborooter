@@ -16,7 +16,7 @@ class Symlink(FileHint.FileHint):
             link_dest = os.path.join(path, rule[1])
 
             if not self._is_path_linking_to_location(link_src, link_dest):
-                print("Expected %s to link to %s" % (link_src, link_dest))
+                print("Expected %s to link to %s" % (link_dest, link_src))
                 yield (link_src, link_dest)
 
     def _relativize_link(self, source, target):
@@ -37,7 +37,7 @@ class Symlink(FileHint.FileHint):
         if not os.path.islink(target):
             return False
 
-        if os.readlink(target) != source:
+        if os.path.normpath(os.readlink(target)) != os.path.normpath(source):
             return False
 
         return True
