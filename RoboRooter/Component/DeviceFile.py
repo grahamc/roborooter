@@ -3,6 +3,7 @@ import FileHint
 import os
 import stat
 
+
 class DeviceFile(FileHint.FileHint):
     def __init__(self):
         self.hint_name = './manifests/devices'
@@ -16,7 +17,11 @@ class DeviceFile(FileHint.FileHint):
             expected = self._extract_device_id(src_device)
             current = self._extract_device_id(target_device)
             if (expected != current):
-                print("Expected %s to have device ID %s but was %s" % (target_device, expected, current))
+                print("Expected %s to have device ID %s but was %s" % (
+                    target_device,
+                    expected,
+                    current
+                    ))
                 yield (src_device, target_device)
 
     def _extract_device_id(self, path):
@@ -54,4 +59,3 @@ class DeviceFile(FileHint.FileHint):
             dev_id = self._extract_device_id(change[0])
             dev_mode = self._extract_device_mode(change[0])
             os.mknod(change[1], dev_mode, dev_id)
-

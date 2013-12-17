@@ -5,4 +5,3 @@ class Noop(object):
 
     def applies_to_manifest(self, manifest):
         return self.applies
-

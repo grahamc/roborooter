@@ -2,6 +2,7 @@
 import FileHint
 import os
 
+
 class Permission(FileHint.FileHint):
     def __init__(self):
         self.hint_name = './manifests/permissions'
@@ -24,10 +25,6 @@ class Permission(FileHint.FileHint):
             except(OSError):
                 continue
 
-
     def fix(self, path):
         for change in self._filter_violations(path):
             os.chmod(change[1], change[0])
-
-
-

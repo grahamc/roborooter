@@ -2,6 +2,7 @@
 import os
 import Manifest
 
+
 class ManifestLoader(object):
     def __init__(self, config):
         self.config = config
@@ -55,6 +56,3 @@ class ManifestLoader(object):
         self.versions[version] = manifest
 
         return True
-
-
-

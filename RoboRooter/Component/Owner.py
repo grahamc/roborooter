@@ -4,6 +4,7 @@ import os
 import pwd
 import grp
 
+
 class Owner(FileHint.FileHint):
     def __init__(self):
         self.hint_name = './manifests/permissions'
@@ -21,7 +22,7 @@ class Owner(FileHint.FileHint):
                 file_stat = os.stat(rule_path)
                 current_user = self._uid_to_name(file_stat.st_uid)
                 current_group = self._gid_to_name(file_stat.st_gid)
-                current = "%s:%s" % (current_user, current_group);
+                current = "%s:%s" % (current_user, current_group)
 
                 if current != expected:
                     print "Expected %s to be owned by %s but was %s" % (
@@ -45,10 +46,8 @@ class Owner(FileHint.FileHint):
     def _name_to_gid(self, name):
         return grp.getgrnam(name).gr_gid
 
-
     def fix(self, path):
         for change in self._filter_violations(path):
-            os.chown(change[2], self._name_to_uid(change[0]), self._name_to_gid(change[1]))
-
-
-
+            change_uid = self._name_to_uid(change[0])
+            change_gid = self._name_to_gid(change[1])
+            os.chown(change[2], change_uid, change_gid)

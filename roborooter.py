@@ -26,17 +26,15 @@ fixes = 1
 attempts = 0
 max_attempts = 1
 while fixes > 0 and attempts < 1:
-  fixes = 0
-  attempts += 1
-  for comp in manifest.components:
-    name = comp.__class__.__name__
+    fixes = 0
+    attempts += 1
+    for comp in manifest.components:
+        name = comp.__class__.__name__
 
-    needs_fixing = comp.needs_fixing(path)
-    print "%s: %s" % (name, needs_fixing)
+        needs_fixing = comp.needs_fixing(path)
+        print "%s: %s" % (name, needs_fixing)
 
-    if needs_fixing:
-      fixes += 1
-      comp.fix(path)
-  print "Made %d fixes on attempt %d" % (fixes, attempts)
-
-
+        if needs_fixing:
+            fixes += 1
+            comp.fix(path)
+    print "Made %d fixes on attempt %d" % (fixes, attempts)

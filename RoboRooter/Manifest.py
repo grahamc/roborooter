@@ -1,6 +1,7 @@
 
 import copy
 
+
 class Manifest(object):
     def __init__(self, version, path):
         self.version = version
@@ -19,4 +20,3 @@ class Manifest(object):
         self.components.append(local_component)
 
         return True
-

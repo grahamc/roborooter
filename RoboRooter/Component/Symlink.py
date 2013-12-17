@@ -3,6 +3,7 @@
 import FileHint
 import os
 
+
 class Symlink(FileHint.FileHint):
     def __init__(self):
         self.hint_name = './manifests/symlinks'
@@ -29,7 +30,6 @@ class Symlink(FileHint.FileHint):
 
             return link_src
 
-
     def _is_path_linking_to_location(self, source, target):
         if not os.path.exists(target):
             return False
@@ -42,11 +42,6 @@ class Symlink(FileHint.FileHint):
 
         return True
 
-
-
     def fix(self, path):
         for change in self._filter_violations(path):
             os.symlink(change[0], change[1])
-
-
-

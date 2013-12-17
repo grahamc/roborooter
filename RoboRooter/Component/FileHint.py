@@ -2,6 +2,7 @@
 import re
 import os.path
 
+
 class FileHint(object):
     def applies_to_manifest(self, manifest):
         return os.path.isfile(os.path.join(manifest.path, self.hint_name))
@@ -23,4 +24,3 @@ class FileHint(object):
             is_valid = False
 
         return not is_valid
-

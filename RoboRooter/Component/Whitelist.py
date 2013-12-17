@@ -4,6 +4,7 @@ import hashlib
 import shutil
 import os
 
+
 class Whitelist(FileHint.FileHint):
     def __init__(self):
         self.hint_name = './manifests/whitelist'
@@ -26,8 +27,14 @@ class Whitelist(FileHint.FileHint):
     def _filter_violations(self, root_path, rel='./'):
         path = os.path.join(root_path, rel)
         for entry in os.listdir(path):
-            scoped_path = os.path.join('./', os.path.normpath(os.path.join(rel, entry)))
-            absolute_path = os.path.join('./', os.path.normpath(os.path.join(root_path, rel, entry)))
+            scoped_path = os.path.join(
+                './',
+                os.path.normpath(os.path.join(rel, entry))
+            )
+            absolute_path = os.path.join(
+                './',
+                os.path.normpath(os.path.join(root_path, rel, entry))
+            )
             if os.path.isfile(absolute_path):
                 if scoped_path in self.files:
                     continue
@@ -38,12 +45,13 @@ class Whitelist(FileHint.FileHint):
                 if scoped_path in self.directories:
                     continue
                 else:
-                    for yield_path in self._filter_violations(root_path, scoped_path):
+                    _sub_filter = self._filter_violations(
+                        root_path,
+                        scoped_path
+                    )
+                    for yield_path in _sub_filter:
                         yield yield_path
-
-
 
     def fix(self, path):
         for change in self._filter_violations(path):
             os.remove(change)
-

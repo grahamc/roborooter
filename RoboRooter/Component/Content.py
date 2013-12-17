@@ -4,6 +4,7 @@ import hashlib
 import shutil
 import os
 
+
 class Content(FileHint.FileHint):
     def __init__(self):
         self.hint_name = './manifests/md5'
@@ -53,4 +54,3 @@ class Content(FileHint.FileHint):
             return None
 
         return md5.hexdigest()
-

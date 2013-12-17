@@ -2,6 +2,7 @@
 import os.path
 import ConfigParser
 
+
 class ConfigLoader(object):
     def __init__(self, config_file):
         self.config_file = config_file
@@ -11,16 +12,17 @@ class ConfigLoader(object):
 
     def get_config(self):
         cfg = {
-                'sources_path': self.sources_path(),
-                'minimum_version': self.minimum_version(),
-                'default_version': self.default_version()
+            'sources_path': self.sources_path(),
+            'minimum_version': self.minimum_version(),
+            'default_version': self.default_version()
         }
 
         return cfg
 
     # Get the path to the sources
     def sources_path(self):
-        return os.path.join(os.path.dirname(self.config_file), self.config['sources'])
+        config_dir_path = os.path.dirname(self.config_file)
+        return os.path.join(config_dir_path, self.config['sources'])
 
     def minimum_version(self):
         return int(self.config['minimum_version'])
@@ -39,15 +41,14 @@ class ConfigLoader(object):
 
     def _defaults(self):
         default = {
-                'sources': '/usr/local/roborooter/',
-                'minimum_version': '1',
-                'default_version': '1'
+            'sources': '/usr/local/roborooter/',
+            'minimum_version': '1',
+            'default_version': '1'
         }
 
         return default
 
     def _verify_config(self):
         if self.default_version() < self.minimum_version():
-            raise ValueError('default_version must not be below minimum_version')
-
-
+            msg = 'default_version must not be below minimum_version'
+            raise ValueError(msg)
