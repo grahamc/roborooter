@@ -37,12 +37,6 @@ class Content(FileHint.FileHint):
       except(OSError):
         continue
 
-  def needs_fixing(self, path):
-    for path in self._filter_violations(path):
-      return True
-
-    return False
-
   def fix(self, path):
     for change in self._filter_violations(path):
       if not os.path.isdir(os.path.dirname(change[1])):

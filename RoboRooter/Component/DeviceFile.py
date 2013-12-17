@@ -42,13 +42,6 @@ class DeviceFile(FileHint.FileHint):
     except:
       return None
 
-
-  def needs_fixing(self, path):
-    for path in self._filter_violations(path):
-      return True
-
-    return False
-
   def fix(self, path):
     for change in self._filter_violations(path):
       if os.path.exists(change[1]):

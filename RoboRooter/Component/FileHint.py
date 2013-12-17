@@ -17,3 +17,10 @@ class FileHint(object):
       if matches:
         self.rules.append(matches.groups())
 
+  def needs_fixing(self, path):
+    is_valid = True
+    for path in self._filter_violations(path):
+      is_valid = False
+
+    return not is_valid
+

@@ -43,15 +43,9 @@ class Symlink(FileHint.FileHint):
     return True
 
 
-  def needs_fixing(self, path):
-    for path in self._filter_violations(path):
-      return True
-
-    return False
 
   def fix(self, path):
     for change in self._filter_violations(path):
-
       os.symlink(change[0], change[1])
 
 
