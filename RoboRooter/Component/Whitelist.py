@@ -1,7 +1,5 @@
 
 import FileHint
-import hashlib
-import shutil
 import os
 
 
