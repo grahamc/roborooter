@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from optparse import OptionParser
+from RoboRooter.LoggerConfiguration import LoggerConfiguration
+from RoboRooter.CommandLine import CommandLine
 from RoboRooter.ConfigLoader import ConfigLoader
 from RoboRooter.ManifestLoader import ManifestLoader
 from RoboRooter.Component.Permission import Permission
@@ -11,60 +12,34 @@ from RoboRooter.Component.Whitelist import Whitelist
 from RoboRooter.Component.Symlink import Symlink
 import sys
 import pprint
-import logging
 
+cli = CommandLine()
+(options, args) = cli.parse()
+LoggerConfiguration().configureByOptions(options)
 
-parser = OptionParser()
-parser.add_option('-c', '--config', dest='config',
-                  default='/etc/roborooter.ini',
-                  help='load roborooter config from CONFIG')
-parser.add_option('-v', '--verbose',
-                  action='count',
-                  default=False, dest="verbose")
-parser.add_option('-q', '--quiet',
-                  action='count',
-                  default=False, dest="quiet")
+config = ConfigLoader(options.config)
 
-
-(options, args) = parser.parse_args()
-
-# Calculate log level
-log_level = 3
-if options.verbose is not False:
-    log_level += options.verbose
-if options.quiet is not False:
-    log_level -= options.quiet
-
-if log_level >= 5:
-    logging.setLevel(logging.DEBUG)
-elif log_level == 4:
-    logging.setLevel(logging.INFO)
-elif log_level == 3:
-    logging.setLevel(logging.WARNING)
-elif log_level == 2:
-    logging.setLevel(logging.ERROR)
-elif log_level <= 1:
-    logging.setLevel(logging.CRITICAL)
-else:
-    msg = 'Could not determine log level from integer %d' % log_level
-    raise ValueError(msg)
-
-pprint.pprint(log_level)
-
-
-pprint.pprint((options, args))
-sys.exit(1)
-config = ConfigLoader('./example/roborooter.ini')
 manifest_loader = ManifestLoader(config.get_config())
-manifest_loader.add_component(Content())
-manifest_loader.add_component(DeviceFile())
-manifest_loader.add_component(Symlink())
-manifest_loader.add_component(Permission())
-manifest_loader.add_component(Owner())
-manifest_loader.add_component(Whitelist())
-manifest = manifest_loader.get_manifest_by_version(1)
+cur = 5
+if 0 == cur:
+    manifest_loader.add_component(Content())
+if 1 == cur:
+    manifest_loader.add_component(DeviceFile())
+if 2 == cur:
+    manifest_loader.add_component(Symlink())
+if 3 == cur:
+    manifest_loader.add_component(Permission())
+if 4 == cur:
+    manifest_loader.add_component(Owner())
+if 5 == cur:
+    manifest_loader.add_component(Whitelist())
 
 path = './example/target/'
+manifest = manifest_loader.get_manifest_for_path(path)
+
+if manifest is None:
+    print "Well, that's all folks."
+    sys.exit(0)
 
 fixes = 1
 attempts = 0
@@ -75,10 +50,14 @@ while fixes > 0 and attempts < 1:
     for comp in manifest.components:
         name = comp.__class__.__name__
 
-        needs_fixing = comp.needs_fixing(path)
-        print "%s: %s" % (name, needs_fixing)
+        needs_fixing = comp.needs_fixing(path, process_all=options.dry_run)
 
         if needs_fixing:
             fixes += 1
-            comp.fix(path)
-    print "Made %d fixes on attempt %d" % (fixes, attempts)
+            if not options.dry_run and options.actually_run:
+                comp.fix(path)
+
+    if options.dry_run:
+        print "Would have made %d fixes on attempt %d" % (fixes, attempts)
+    else:
+        print "Made %d fixes on attempt %d" % (fixes, attempts)

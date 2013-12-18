@@ -1,10 +1,12 @@
 
 import os.path
 import ConfigParser
+import logging
 
 
 class ConfigLoader(object):
     def __init__(self, config_file):
+        self.logger = logging.getLogger(__name__)
         self.config_file = config_file
         self.config = None
         self._config()
@@ -36,7 +38,16 @@ class ConfigLoader(object):
             config_parser = ConfigParser.ConfigParser(self._defaults())
             config_parser.read(self.config_file)
 
-            self.config = dict(config_parser.items('roborooter'))
+            try:
+                self.config = dict(config_parser.items('roborooter'))
+            except ConfigParser.NoSectionError as e:
+                self.logger.critical(
+                    'Could not parse config file %s: %s',
+                    self.config_file,
+                    e
+                )
+                raise e
+
         return self.config
 
     def _defaults(self):
@@ -50,5 +61,6 @@ class ConfigLoader(object):
 
     def _verify_config(self):
         if self.default_version() < self.minimum_version():
+            logging.critical('default_version must now be below minimum_version')
             msg = 'default_version must not be below minimum_version'
             raise ValueError(msg)

@@ -1,15 +1,17 @@
 
 import FileHint
 import os
+import logging
 
 
 class Whitelist(FileHint.FileHint):
     def __init__(self):
+        self.logger = logging.getLogger(__name__)
         self.hint_name = './manifests/whitelist'
         self.state_expression = r'^(.+)$'
         self.rules = []
 
-        self.files = []
+        self.files = ['./.roborooter']
         self.directories = []
 
     def load_state(self, manifest):
