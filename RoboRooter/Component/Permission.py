@@ -27,7 +27,7 @@ class Permission(FileHint.FileHint):
                     )
                     yield (expected, rule_path)
             except OSError as e:
-                self.logger.error(
+                self.logger.debug(
                     'Failed to check permissions on %s: %s',
                     rule_path,
                     e

@@ -36,7 +36,7 @@ class Owner(FileHint.FileHint):
                     )
                     yield (expected_user, expected_group, rule_path)
             except OSError as e:
-                self.logger.error(
+                self.logger.debug(
                     'Failed to check ownership of %s: %s',
                     rule_path,
                     e
