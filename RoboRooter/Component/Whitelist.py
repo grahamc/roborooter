@@ -24,8 +24,15 @@ class Whitelist(FileHint.FileHint):
             else:
                 self.files.append(path)
 
+        self.logger.debug(
+            'Loaded %d whitelisted directories and %d whitelisted files.',
+            len(self.directories),
+            len(self.files)
+        )
+
     def _filter_violations(self, root_path, rel='./'):
         path = os.path.join(root_path, rel)
+        self.logger.debug('Inspecting %s for whitelist violations', path)
         for entry in os.listdir(path):
             scoped_path = os.path.join(
                 './',
@@ -37,12 +44,14 @@ class Whitelist(FileHint.FileHint):
             )
             if os.path.isfile(absolute_path):
                 if scoped_path in self.files:
+                    self.logger.debug('Found whitelisted file: %s', absolute_path)
                     continue
                 else:
-                    print "Would remove %s" % (absolute_path)
+                    self.logger.info('Found file violation: %s', absolute_path)
                     yield absolute_path
             elif os.path.isdir(absolute_path):
                 if os.path.normpath(scoped_path) in self.directories:
+                    self.logger.debug('Found whitelisted directory: %s', absolute_path)
                     continue
                 else:
                     _sub_filter = self._filter_violations(
@@ -54,4 +63,12 @@ class Whitelist(FileHint.FileHint):
 
     def fix(self, path):
         for change in self._filter_violations(path):
-            os.remove(change)
+            self.logger.info('Removing file: %s', change)
+            try:
+                os.remove(change)
+            except OSError as e:
+                self.logger.error(
+                    'Failed to remove file %s: %s',
+                    change,
+                    e
+                )

@@ -20,19 +20,12 @@ LoggerConfiguration().configureByOptions(options)
 config = ConfigLoader(options.config)
 
 manifest_loader = ManifestLoader(config.get_config())
-cur = 5
-if 0 == cur:
-    manifest_loader.add_component(Content())
-if 1 == cur:
-    manifest_loader.add_component(DeviceFile())
-if 2 == cur:
-    manifest_loader.add_component(Symlink())
-if 3 == cur:
-    manifest_loader.add_component(Permission())
-if 4 == cur:
-    manifest_loader.add_component(Owner())
-if 5 == cur:
-    manifest_loader.add_component(Whitelist())
+manifest_loader.add_component(Content())
+manifest_loader.add_component(DeviceFile())
+manifest_loader.add_component(Symlink())
+manifest_loader.add_component(Permission())
+manifest_loader.add_component(Owner())
+manifest_loader.add_component(Whitelist())
 
 path = './example/target/'
 manifest = manifest_loader.get_manifest_for_path(path)
