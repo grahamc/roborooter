@@ -13,6 +13,7 @@ from RoboRooter.Component.Symlink import Symlink
 from RoboRooter.Component.RoboVersioning import RoboVersioning
 import sys
 import pprint
+import logging
 
 cli = CommandLine()
 (options, args) = cli.parse()
@@ -31,30 +32,44 @@ manifest_loader.add_component(Owner())
 manifest_loader.add_component(Whitelist())
 manifest_loader.add_component(RoboVersioning())
 
-path = './example/target/'
-manifest = manifest_loader.get_manifest_for_path(path)
 
-if manifest is None:
-    print "Well, that's all folks."
-    sys.exit(0)
+def do_things_on_path(path):
+    logger = logging.getLogger(__name__)
+    manifest = manifest_loader.get_manifest_for_path(path)
 
-fixes = 1
-attempts = 0
-max_attempts = 1
-while fixes > 0 and attempts < 1:
-    fixes = 0
-    attempts += 1
-    for comp in manifest.components:
-        name = comp.__class__.__name__
+    if manifest is None:
+        logger.critical('No manifest found for %s', path)
+        return None
 
-        needs_fixing = comp.needs_fixing(path, process_all=options.dry_run)
+    fixes = 1
+    attempts = 0
+    max_attempts = 1
+    while fixes > 0 and attempts < 1:
+        fixes = 0
+        attempts += 1
+        for comp in manifest.components:
+            name = comp.__class__.__name__
 
-        if needs_fixing:
-            fixes += 1
-            if not options.dry_run and options.actually_run:
-                comp.fix(path)
+            needs_fixing = comp.needs_fixing(path, process_all=options.dry_run)
 
-    if options.dry_run:
-        print "Would have made %d fixes on attempt %d" % (fixes, attempts)
-    else:
-        print "Made %d fixes on attempt %d" % (fixes, attempts)
+            if needs_fixing:
+                fixes += 1
+                if not options.dry_run and options.actually_run:
+                    comp.fix(path)
+
+        if options.dry_run:
+            logger.info(
+                'Would have made %d fixes on attempt %d to path %s',
+                fixes,
+                attempts,
+                path
+            )
+        else:
+            logger.info(
+                'Made %d fixes on attempt %d to path %s',
+                fixes,
+                attempts,
+                path
+            )
+
+r = [do_things_on_path(x) for x in args]
