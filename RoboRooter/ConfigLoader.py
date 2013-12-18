@@ -12,6 +12,9 @@ class ConfigLoader(object):
         self._config()
         self._verify_config()
 
+    def override(self, attribute, value):
+        self.config[attribute] = value
+
     def get_config(self):
         cfg = {
             'sources_path': self.sources_path(),

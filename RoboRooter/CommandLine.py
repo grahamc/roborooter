@@ -31,6 +31,11 @@ class CommandLine(object):
             dest='actually_run'
         )
         self.parser.add_option(
+            '-m',
+            '--minimum-version',
+            dest='minimum_version'
+        )
+        self.parser.add_option(
             '-v',
             '--verbose',
             action='count',

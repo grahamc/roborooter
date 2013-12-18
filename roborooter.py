@@ -19,6 +19,8 @@ cli = CommandLine()
 LoggerConfiguration().configureByOptions(options)
 
 config = ConfigLoader(options.config)
+if options.minimum_version and int(options.minimum_version):
+    config.override('minimum_version', options.minimum_version)
 
 manifest_loader = ManifestLoader(config.get_config())
 manifest_loader.add_component(Content())
