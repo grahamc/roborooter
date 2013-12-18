@@ -10,6 +10,7 @@ from RoboRooter.Component.DeviceFile import DeviceFile
 from RoboRooter.Component.Content import Content
 from RoboRooter.Component.Whitelist import Whitelist
 from RoboRooter.Component.Symlink import Symlink
+from RoboRooter.Component.RoboVersioning import RoboVersioning
 import sys
 import pprint
 
@@ -26,6 +27,7 @@ manifest_loader.add_component(Symlink())
 manifest_loader.add_component(Permission())
 manifest_loader.add_component(Owner())
 manifest_loader.add_component(Whitelist())
+manifest_loader.add_component(RoboVersioning())
 
 path = './example/target/'
 manifest = manifest_loader.get_manifest_for_path(path)
