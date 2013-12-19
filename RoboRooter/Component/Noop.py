@@ -1,6 +1,7 @@
 
 import random
 
+
 class Noop(object):
     def __init__(self, applies=True):
         self.applies = applies
