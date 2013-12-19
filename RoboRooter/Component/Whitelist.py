@@ -43,32 +43,44 @@ class Whitelist(FileHint.FileHint):
                 os.path.normpath(os.path.join(root_path, rel, entry))
             )
             if os.path.isfile(absolute_path):
-                if scoped_path in self.files:
-                    self.logger.debug(
-                        'Found whitelisted file: %s',
-                        absolute_path
-                    )
-                    continue
-                else:
-                    self.logger.info(
-                        'Found file violation: %s',
-                        absolute_path
-                    )
+                if not self._is_file_valid(scoped_path, absolute_path):
                     yield absolute_path
             elif os.path.isdir(absolute_path):
-                if os.path.normpath(scoped_path) in self.directories:
-                    self.logger.debug(
-                        'Found whitelisted directory: %s',
-                        absolute_path
-                    )
-                    continue
-                else:
+                if not self._is_directory_valid(scoped_path, absolute_path):
                     _sub_filter = self._filter_violations(
                         root_path,
                         scoped_path
                     )
                     for yield_path in _sub_filter:
                         yield yield_path
+
+    def _is_file_valid(self, scoped_path, absolute_path):
+        if not os.path.isfile(absolute_path):
+            raise TypeError('Path %s is not a file' % (absolute_path))
+
+        if scoped_path in self.files:
+            self.logger.debug(
+                'Found whitelisted file: %s',
+                absolute_path
+            )
+            return True
+        self.logger.info(
+            'Found file violation: %s',
+            absolute_path
+        )
+        return False
+
+    def _is_directory_valid(self, scoped_path, absolute_path):
+        if not os.path.isdir(absolute_path):
+            raise TypeError('Path %s is not a directory' % (absolute_path))
+        if os.path.normpath(scoped_path) in self.directories:
+            self.logger.debug(
+                'Found whitelisted directory: %s',
+                absolute_path
+            )
+            return True
+        return False
+
 
     def fix(self, path):
         for change in self._filter_violations(path):
