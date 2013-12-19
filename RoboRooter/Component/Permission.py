@@ -17,7 +17,7 @@ class Permission(FileHint.FileHint):
             rule_path = os.path.join(path, rule[1])
             try:
                 if os.path.islink(path):
-                    return None
+                    continue
                 expected = int(rule[0], 8)
                 current = os.stat(rule_path).st_mode & 0777
                 if current != expected:

@@ -31,7 +31,7 @@ manifest_loader.add_component(Whitelist())
 manifest_loader.add_component(RoboVersioning())
 
 
-def do_things_on_path(path):
+def roboroot_against_path(path):
     logger = logging.getLogger(__name__)
     manifest = manifest_loader.get_manifest_for_path(path)
 
@@ -68,4 +68,4 @@ def do_things_on_path(path):
                 path
             )
 
-r = [do_things_on_path(x) for x in args]
+[roboroot_against_path(x) for x in args]
