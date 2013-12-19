@@ -31,7 +31,10 @@ class DeviceFile(FileHint.FileHint):
 
     def _extract_device_id(self, path):
         try:
-            dev_stat = os.lstat(path)
+            if os.path.islink(path):
+                return None
+
+            dev_stat = os.stat(path)
             return dev_stat.st_rdev
         except OSError as e:
             self.logger.debug(
@@ -43,7 +46,10 @@ class DeviceFile(FileHint.FileHint):
 
     def _extract_device_mode(self, path):
         try:
-            dev_stat = os.lstat(path)
+            if os.path.islink(path):
+                return None
+
+            dev_stat = os.stat(path)
             mode = 0
             if stat.S_ISBLK(dev_stat.st_mode):
                 mode = stat.S_IFBLK

@@ -60,6 +60,15 @@ class Symlink(FileHint.FileHint):
                 change[1]
             )
             try:
+                os.remove(change[1])
+                self.logger.info(
+                    'Removed file at %s prior to linking',
+                    change[1]
+                )
+            except:
+                True
+
+            try:
                 os.symlink(change[0], change[1])
             except OSError as e:
                 self.logger.error(

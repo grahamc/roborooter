@@ -16,8 +16,10 @@ class Permission(FileHint.FileHint):
             self.logger.debug('Testing rule: %s', rule)
             rule_path = os.path.join(path, rule[1])
             try:
+                if os.path.islink(path):
+                    return None
                 expected = int(rule[0], 8)
-                current = os.lstat(rule_path).st_mode & 0777
+                current = os.stat(rule_path).st_mode & 0777
                 if current != expected:
                     self.logger.info(
                         'Expected %s to have %o but was %o',

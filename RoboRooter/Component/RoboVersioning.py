@@ -41,4 +41,3 @@ class RoboVersioning(object):
                 version_file,
                 e
             )
-

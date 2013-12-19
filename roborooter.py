@@ -11,8 +11,6 @@ from RoboRooter.Component.Content import Content
 from RoboRooter.Component.Whitelist import Whitelist
 from RoboRooter.Component.Symlink import Symlink
 from RoboRooter.Component.RoboVersioning import RoboVersioning
-import sys
-import pprint
 import logging
 
 cli = CommandLine()
@@ -44,12 +42,10 @@ def do_things_on_path(path):
     fixes = 1
     attempts = 0
     max_attempts = 1
-    while fixes > 0 and attempts < 1:
+    while fixes > 0 and attempts < max_attempts:
         fixes = 0
         attempts += 1
         for comp in manifest.components:
-            name = comp.__class__.__name__
-
             needs_fixing = comp.needs_fixing(path, process_all=options.dry_run)
 
             if needs_fixing:

@@ -44,14 +44,23 @@ class Whitelist(FileHint.FileHint):
             )
             if os.path.isfile(absolute_path):
                 if scoped_path in self.files:
-                    self.logger.debug('Found whitelisted file: %s', absolute_path)
+                    self.logger.debug(
+                        'Found whitelisted file: %s',
+                        absolute_path
+                    )
                     continue
                 else:
-                    self.logger.info('Found file violation: %s', absolute_path)
+                    self.logger.info(
+                        'Found file violation: %s',
+                        absolute_path
+                    )
                     yield absolute_path
             elif os.path.isdir(absolute_path):
                 if os.path.normpath(scoped_path) in self.directories:
-                    self.logger.debug('Found whitelisted directory: %s', absolute_path)
+                    self.logger.debug(
+                        'Found whitelisted directory: %s',
+                        absolute_path
+                    )
                     continue
                 else:
                     _sub_filter = self._filter_violations(

@@ -28,7 +28,6 @@ class Manifest(object):
             self.path
         )
 
-
         local_component = copy.copy(component)
         local_component.load_state(self)
         self.components.append(local_component)

@@ -64,6 +64,6 @@ class ConfigLoader(object):
 
     def _verify_config(self):
         if self.default_version() < self.minimum_version():
-            logging.critical('default_version must now be below minimum_version')
             msg = 'default_version must not be below minimum_version'
+            logging.critical(msg)
             raise ValueError(msg)

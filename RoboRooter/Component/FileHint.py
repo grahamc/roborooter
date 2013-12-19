@@ -1,7 +1,6 @@
 
 import re
 import os.path
-import logging
 
 
 class FileHint(object):
@@ -15,7 +14,6 @@ class FileHint(object):
             len(self.rules),
             os.path.join(manifest.path, self.hint_name)
         )
-
 
     def _load_state_via_regex(self, manifest):
         prog = re.compile(self.state_expression)

@@ -3,6 +3,7 @@ import os
 import Manifest
 import logging
 
+
 class ManifestLoader(object):
     def __init__(self, config):
         self.config = config
@@ -16,7 +17,7 @@ class ManifestLoader(object):
                 version = int(f.read().strip())
 
             manifest = self.get_manifest_by_version(version)
-        except IOError as e:
+        except IOError:
             self.logger.warning(
                 'No .roborooter found at %s, falling back to version %d',
                 path,
@@ -36,7 +37,6 @@ class ManifestLoader(object):
 
         return manifest
 
-
     def get_default_manifest(self):
         version = self.config['default_version']
         manifest = self.get_manifest_by_version(version)
@@ -47,7 +47,6 @@ class ManifestLoader(object):
             raise RuntimeWarning(msg)
 
         return manifest
-
 
     def get_manifest_versions(self):
         try:

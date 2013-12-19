@@ -59,7 +59,7 @@ class Owner(FileHint.FileHint):
             try:
                 change_uid = self._name_to_uid(change[0])
                 change_gid = self._name_to_gid(change[1])
-                os.lchown(change[2], change_uid, change_gid)
+                os.chown(change[2], change_uid, change_gid)
             except OSError as e:
                 self.logger.error(
                     'Failed to change ownership of %s to %s:%s: %s',

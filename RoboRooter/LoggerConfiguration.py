@@ -1,6 +1,6 @@
 
 import logging
-import pprint
+
 
 class LoggerConfiguration(object):
     def __init__(self):
@@ -11,7 +11,7 @@ class LoggerConfiguration(object):
         default_level = 2
         verbosity = values.verbose
         shush = values.quiet
-        calculated = (2 - verbosity + shush) * 10
+        calculated = (default_level - verbosity + shush) * 10
         self.log_level = min(50, max(10, calculated))
         logging.basicConfig(format=self.fmt, level=self.log_level)
         logging.getLogger(__name__).debug(
