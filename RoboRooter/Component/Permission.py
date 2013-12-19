@@ -36,7 +36,7 @@ class Permission(FileHint.FileHint):
     def fix(self, path):
         for change in self._filter_violations(path):
             try:
-                os.lchmod(change[1], change[0])
+                os.chmod(change[1], change[0])
             except OSError as e:
                 self.logger.error(
                     'Failed to update permissions on %s to %s: %s',
