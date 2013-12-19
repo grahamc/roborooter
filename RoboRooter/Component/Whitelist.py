@@ -81,7 +81,6 @@ class Whitelist(FileHint.FileHint):
             return True
         return False
 
-
     def fix(self, path):
         for change in self._filter_violations(path):
             self.logger.info('Removing file: %s', change)

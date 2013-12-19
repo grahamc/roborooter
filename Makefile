@@ -1,6 +1,6 @@
 .PHONY: test strict
 test:
-	flake8 --max-complexity=10 .
+	flake8 --max-complexity=9 .
 	python -m unittest  discover
 
 strict:
