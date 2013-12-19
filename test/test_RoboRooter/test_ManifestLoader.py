@@ -1,4 +1,5 @@
 
+import logging
 import unittest
 from RoboRooter.ManifestLoader import ManifestLoader
 from RoboRooter.Manifest import Manifest
@@ -6,9 +7,14 @@ from RoboRooter.Manifest import Manifest
 
 class test_ManifestLoader(unittest.TestCase):
     def setUp(self):
+        logging.basicConfig(level=100)
         self.path = './test/test_RoboRooter/fixtures-ManifestLoader'
         self.loader = ManifestLoader(
-            {'sources_path': self.path}
+            {
+                'sources_path': self.path,
+                'minimum_version': 1,
+                'default_version': 1
+            }
         )
 
     def test_get_manifest_versions(self):

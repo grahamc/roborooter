@@ -1,10 +1,12 @@
 
 import unittest
+import logging
 from RoboRooter.ConfigLoader import ConfigLoader
 
 
 class test_ConfigLoader(unittest.TestCase):
     def setUp(self):
+        logging.basicConfig(level=100)
         self.root_path = 'test/test_RoboRooter/fixtures-ConfigLoader/'
         self.empty_config = ConfigLoader(
             '%s/empty.ini' % self.root_path
