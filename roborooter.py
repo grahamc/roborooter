@@ -39,33 +39,26 @@ def roboroot_against_path(path):
         logger.critical('No manifest found for %s', path)
         return None
 
-    fixes = 1
-    attempts = 0
-    max_attempts = 1
-    while fixes > 0 and attempts < max_attempts:
-        fixes = 0
-        attempts += 1
-        for comp in manifest.components:
-            needs_fixing = comp.needs_fixing(path, process_all=options.dry_run)
+    fixes = 0
+    for comp in manifest.components:
+        needs_fixing = comp.needs_fixing(path, process_all=options.dry_run)
 
-            if needs_fixing:
-                fixes += 1
-                if not options.dry_run and options.actually_run:
-                    comp.fix(path)
+        if needs_fixing:
+            fixes += 1
+            if not options.dry_run and options.actually_run:
+                comp.fix(path)
 
-        if options.dry_run:
-            logger.info(
-                'Would have made %d fixes on attempt %d to path %s',
-                fixes,
-                attempts,
-                path
-            )
-        else:
-            logger.info(
-                'Made %d fixes on attempt %d to path %s',
-                fixes,
-                attempts,
-                path
-            )
+    if options.dry_run:
+        logger.info(
+            'Would have made %d fixes on to path %s',
+            fixes,
+            path
+        )
+    else:
+        logger.info(
+            'Made %d fixes on to path %s',
+            fixes,
+            path
+        )
 
 [roboroot_against_path(x) for x in args]
