@@ -52,7 +52,7 @@ class test_ManifestLoader(unittest.TestCase):
         )
 
     def test_manifest_loading_polutes_previously_loaded_manifests(self):
-        self.loader.add_component(Whitelist())
+        self.loader.add_component(Whitelist)
         manifest1 = self.loader.get_manifest_by_version(1)
         startingRules = copy.copy(manifest1.components[0].rules)
 
