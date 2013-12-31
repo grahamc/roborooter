@@ -22,13 +22,13 @@ if options.minimum_version and int(options.minimum_version):
     config.override('minimum_version', options.minimum_version)
 
 manifest_loader = ManifestLoader(config.get_config())
-manifest_loader.add_component(Content())
-manifest_loader.add_component(DeviceFile())
-manifest_loader.add_component(Symlink())
-manifest_loader.add_component(Permission())
-manifest_loader.add_component(Owner())
-manifest_loader.add_component(Whitelist())
-manifest_loader.add_component(RoboVersioning())
+manifest_loader.add_component(Content)
+manifest_loader.add_component(DeviceFile)
+manifest_loader.add_component(Symlink)
+manifest_loader.add_component(Permission)
+manifest_loader.add_component(Owner)
+manifest_loader.add_component(Whitelist)
+manifest_loader.add_component(RoboVersioning)
 
 
 def roboroot_against_path(path):
