@@ -3,6 +3,8 @@ import logging
 import unittest
 from RoboRooter.ManifestLoader import ManifestLoader
 from RoboRooter.Manifest import Manifest
+from RoboRooter.Component.Whitelist import Whitelist
+import copy
 
 
 class test_ManifestLoader(unittest.TestCase):
@@ -48,3 +50,13 @@ class test_ManifestLoader(unittest.TestCase):
             self.loader.add_component(True),
             True
         )
+
+    def test_manifest_loading_polutes_previously_loaded_manifests(self):
+        self.loader.add_component(Whitelist())
+        manifest1 = self.loader.get_manifest_by_version(1)
+        startingRules = copy.copy(manifest1.components[0].rules)
+
+        manifest2 = self.loader.get_manifest_by_version(2)
+        currentRules = manifest1.components[0].rules
+        self.assertEqual(startingRules, currentRules)
+
