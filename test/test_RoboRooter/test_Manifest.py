@@ -2,6 +2,7 @@
 import unittest
 from RoboRooter.Manifest import Manifest
 from RoboRooter.Component.Noop import Noop
+from RoboRooter.Component.Noop import NoopFailing
 
 
 class test_Manifest(unittest.TestCase):

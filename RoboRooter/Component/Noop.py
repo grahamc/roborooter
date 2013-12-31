@@ -15,3 +15,8 @@ class Noop(object):
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
+
+class NoopFailing(Noop):
+    def __init__(self):
+        super(Noop, self).__init__()
+        self.applies = False
