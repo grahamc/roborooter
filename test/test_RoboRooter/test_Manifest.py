@@ -2,6 +2,7 @@
 import unittest
 from RoboRooter.Manifest import Manifest
 from RoboRooter.Component.Noop import Noop
+from RoboRooter.Component.Noop import NoopFailing
 
 
 class test_Manifest(unittest.TestCase):
@@ -15,17 +16,16 @@ class test_Manifest(unittest.TestCase):
 
     def test_add_component(self):
 
-        passing_noop_1 = Noop(True)
-        passing_noop_2 = Noop(True)
+        passing_noop = Noop
         manifest = Manifest(None, None)
-        manifest.add_component(passing_noop_1)
-        manifest.add_component(passing_noop_2)
+        manifest.add_component(passing_noop)
 
-        self.assertEqual(manifest.components, [passing_noop_1, passing_noop_2])
+        self.assertIsInstance(manifest.components[0], Noop)
 
     def test_add_components(self):
-        passing_noop = Noop(True)
+        passing_noop = Noop
         manifest = Manifest(None, None)
-        manifest.add_components([passing_noop, Noop(False)])
+        manifest.add_components([passing_noop, NoopFailing])
 
-        self.assertEqual(manifest.components, [passing_noop])
+        self.assertEqual(1, len(manifest.components))
+        self.assertIsInstance(manifest.components[0], Noop)
