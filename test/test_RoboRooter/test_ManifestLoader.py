@@ -56,7 +56,7 @@ class test_ManifestLoader(unittest.TestCase):
         manifest1 = self.loader.get_manifest_by_version(1)
         startingRules = copy.copy(manifest1.components[0].rules)
 
-        manifest2 = self.loader.get_manifest_by_version(2)
+        # Loading another manifest tends to trigger this bug
+        self.loader.get_manifest_by_version(2)
         currentRules = manifest1.components[0].rules
         self.assertEqual(startingRules, currentRules)
-
